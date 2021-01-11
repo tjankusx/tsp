@@ -17,14 +17,14 @@ class TspNode {
 
 
 //
-//$toImport = [
-//[1, 1],
-//[1, 100],
-//[100, 1],
-////    [100, 100],
-////    [25, 49],
-//];
-//
+$toImport = [
+[1, 1],
+[1, 100],
+[100, 1],
+    [100, 100],
+    [25, 49],
+];
+
 //shuffle($toImport);
 
 
@@ -93,9 +93,9 @@ class TspNode {
 
 
 $nodePoints = [];
-foreach ($nodes as $node) {
-    $nodePoints[] = $node->x;
-    $nodePoints[] = $node->y;
+foreach ($toImport as $node) {
+    $nodePoints[] = $node[0];
+    $nodePoints[] = $node[1];
 }
 
 //print_r($nodePoints);

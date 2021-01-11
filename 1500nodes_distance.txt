@@ -1,3 +1,1 @@
-Total: 406.10821471212
-Nodes included: 26
-Nodes available: 1474
+Total: 434.53624047074

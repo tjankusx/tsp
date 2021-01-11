@@ -22,24 +22,24 @@ $toImport = [
     [100, 100],
     [0, 100],
 //    [25, 100],
-    [50, 100],
-    [50, 0],
+//    [50, 100],
+//    [50, 0],
     [45, 50],
-    [55, 50],
+//    [55, 50],
 ];
 
-$toImport = [
-    [30, 30],
-    [65, 20],
-    [70, 70],
-    [30, 70  l,
+//$toImport = [
+//    [30, 30],
+//    [70, 30],
+//    [40, 70],
+//    [30, 70],
 //    [55, 35],
 //    [25, 100],
 //    [50, 100],
 //    [50, 0],
 //    [45, 50],
 //    [55, 50],
-];
+//];
 
 //shuffle($toImport);
 
@@ -152,9 +152,6 @@ foreach ($nodes as $node) {
     $nodePoints[] = $node->y*8+4;
 }
 
-//print_r($nodePoints);
-//die();
-
 // create image
 $image = imagecreatetruecolor($imageWidth, $imageHeight);
 
@@ -196,13 +193,27 @@ imagepolygon($image, $nodePoints, count($nodePoints)/2, $blue);
 $col_ellipse = imagecolorallocate($image, 255, 255, 255);
 
 $totalDistance = 0;
-// draw the white ellipse
-foreach ($nodes as $node) {
+// draw the white points
+foreach ($nodes as $index => $node) {
     $totalDistance += $node->distanceTo;
     $nodePoints[] = $node->x;
     $nodePoints[] = $node->y;
     imagefilledellipse($image, $node->x*8+4, $node->y*8+4, 3, 2, $col_ellipse);
+    for ($i=$index; $i<count($nodes); $i++) {
+	$cx = ($node->x + $nodes[$i]->x)/2;
+	$cy = ($node->y + $nodes[$i]->y)/2;
+	$dx = abs($cx - $node->x);
+	$dy = abs($cy - $node->y);
+	$radius = sqrt($dx*$dx + $dy*$dy)*2;
+	imageellipse($image, $cx*8+4, $cy*8+4, $radius*8, $radius*8, $col_ellipse);
+
+    }
+
 }
+
+//var_dump($nodes);
+//die();
+
 
 $output = '';
 foreach ($nodes as $node) {
